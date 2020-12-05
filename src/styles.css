@@ -9,13 +9,21 @@ body {
 }
 
 div {
-  width: 100%;
+  width: auto;
   margin: 20px;
 }
 
 div li {
   display: flex;
+  justify-content: space-between;
   align-items: center;
+  border: 1px solid #5c5c5c;
+  border-radius: 5px;
+  padding: 0.5rem;
+}
+
+div li p {
+  width: 30vw;
 }
 
 div li + li {
