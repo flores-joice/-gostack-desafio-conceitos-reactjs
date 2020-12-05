@@ -18,12 +18,10 @@ function App() {
         "owner": "joice Flores"
       }
     )
-    .then( response => console.log(response))
   }
 
   async function handleRemoveRepository(id) {
     api.delete(`projects/${id}`)
-    .then( response => console.log("deletou", id))
   }
 
   return (
