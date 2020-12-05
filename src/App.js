@@ -5,15 +5,15 @@ import "./styles.css";
 
 function App() {
 
-  const [projects, setProjects] = useState()
+  const [repositories, setrepositories] = useState()
 
   useEffect(() => {
-    api.get('projects')
-    .then( response => setProjects(response.data))
+    api.get('repositories')
+    .then( response => setrepositories(response.data))
   })
 
   async function handleAddRepository() {
-    api.post('projects', {
+    api.post('repositories', {
         "title": `Novo projeto ${Date.now()}`,
         "owner": "joice Flores"
       }
@@ -21,19 +21,19 @@ function App() {
   }
 
   async function handleRemoveRepository(id) {
-    api.delete(`projects/${id}`)
+    api.delete(`repositories/${id}`)
   }
 
   return (
     <div>
       <ul data-testid="repository-list">
           {
-            projects && projects.map(project => (
-              <li key={project.id}>
-                <p>Projeto: {project.title}</p>
-                <p>Autor: {project.owner}</p>
+            repositories && repositories.map(repository => (
+              <li key={repository.id}>
+                <p>Projeto: {repository.title}</p>
+                <p>Autor: {repository.owner}</p>
 
-                <button onClick={() => handleRemoveRepository(project.id)}>
+                <button onClick={() => handleRemoveRepository(repository.id)}>
                   Remover
                 </button>
               </li>
