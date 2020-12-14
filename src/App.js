@@ -5,23 +5,29 @@ import "./styles.css";
 
 function App() {
 
-  const [repositories, setrepositories] = useState()
+  const [repositories, setRepositories] = useState()
 
   useEffect(() => {
-    api.get('repositories')
-    .then( response => setrepositories(response.data))
-  })
+    api.get('repositories').then( response => {
+      setRepositories(response.data)
+    })
+  },[])
 
   async function handleAddRepository() {
-    api.post('repositories', {
-        "title": `Novo projeto ${Date.now()}`,
-        "owner": "joice Flores"
-      }
-    )
+    const response = await api.post('repositories', {
+        title: `umbriel`,
+        url: "umbriel.com.br", 
+        techs: 'React'
+      })
+      setRepositories([ ...repositories, response.data])
   }
 
   async function handleRemoveRepository(id) {
-    api.delete(`repositories/${id}`)
+    await api.delete(`repositories/${id}`)
+
+    setRepositories(repositories.filter(
+      repository => repository.id ==! id
+    ))
   }
 
   return (
@@ -31,7 +37,7 @@ function App() {
             repositories && repositories.map(repository => (
               <li key={repository.id}>
                 <p>Projeto: {repository.title}</p>
-                <p>Autor: {repository.owner}</p>
+                <p>URL: {repository.url}</p>
 
                 <button onClick={() => handleRemoveRepository(repository.id)}>
                   Remover
